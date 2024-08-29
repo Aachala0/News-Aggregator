@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const { getNews, getTopheadlines, getCountryNews } = require("./controller/newsController")
+const { getNews, getTopheadlines, getCountryNews, getCatagoryNews } = require("./controller/newsController")
 
 const express = require("express");
 const cors = require("cors");
@@ -13,6 +13,7 @@ const API_KEY = process.env.API_KEY;
 
 
 app.get("/news", getNews);
+app.get("/top-headlines/:category", getCatagoryNews);
 app.get("/top-headlines", getTopheadlines);
 app.get("/country/:iso", getCountryNews);
 
