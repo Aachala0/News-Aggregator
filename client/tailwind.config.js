@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{html,js}"],
+  content: ["./src/**/*.{html, js,jsx,ts,tsx}"],
   theme: {
     extend: {},
     screens: {
@@ -18,6 +18,11 @@ export default {
 
       "2xl": "1536px",
       // => @media (min-width: 1536px) { ... }
+    },
+    colors: {
+      lightBg: "#FCFCFC",
+      lightBgPrimary: "#F8FAFC",
+      lightBgSecondary: "#B4121B",
     },
   },
   plugins: [],

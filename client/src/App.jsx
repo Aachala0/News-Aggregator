@@ -1,17 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import "./App.css";
+import Header from "./components/layout/Header"; 
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
- 
   return (
     <>
-      <div>
-        <h1>Heading Here</h1>
-      </div>
+      <Header /> 
     </>
-  )
+  );
 }
 
-export default App
+export default App;
