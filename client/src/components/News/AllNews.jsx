@@ -48,53 +48,51 @@ function AllNews() {
 
   return (
     <>
-      {error && <div className="text-red-500 mb-4">{error}</div>}
+      {error && <div className="text-danger mb-4">{error}</div>}
 
-      <div className="my-10 cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8 px-3">
-        {!isLoading ? (
-          data.map((element, index) => (
-            <Card
-              title={element.title}
-              description={element.description}
-              imgUrl={element.urlToImage}
-              publishedAt={element.publishedAt}
-              url={element.url}
-              author={element.author}
-              source={element.source.name}
-              key={index}
-            />
-          ))
-        ) : (
-          <Loader />
-        )}
+      <div className="news-container">
+        <div className="row">
+          {!isLoading ? (
+            data.map((element, index) => (
+              <div className="col-12 col-sm-6 col-lg-4 mb-4" key={index}>
+                <Card
+                  title={element.title}
+                  description={element.description}
+                  imgUrl={element.urlToImage}
+                  publishedAt={element.publishedAt}
+                  url={element.url}
+                  author={element.author}
+                  source={element.source.name}
+                />
+              </div>
+            ))
+          ) : (
+            <Loader />
+          )}
+        </div>
       </div>
 
       {!isLoading && data.length > 0 && (
-        <div
-          className="pagination w-full flex justify-center items-center gap-8 my-10"
-          style={{
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <button
-            disabled={page <= 1}
-            className="pagination-btn p-2 rounded text-center"
-            onClick={handlePrev}
-          >
-            &larr; Prev
-          </button>
-          <p className="font-semibold mt-4 mx-3 opacity-80">
-            {page} of {Math.ceil(totalResults / pageSize)}
-          </p>
-          <button
-            className="pagination-btn p-2 rounded text-center"
-            disabled={page >= Math.ceil(totalResults / pageSize)}
-            onClick={handleNext}
-          >
-            Next &rarr;
-          </button>
+        <div className="d-flex justify-content-center my-4">
+          <div className="pagination">
+            <button
+              disabled={page <= 1}
+              className="btn btn-secondary"
+              onClick={handlePrev}
+            >
+              &larr; Prev
+            </button>
+            <span className="mx-2 mt-2">
+              {page} of {Math.ceil(totalResults / pageSize)}
+            </span>
+            <button
+              className="btn btn-secondary"
+              disabled={page >= Math.ceil(totalResults / pageSize)}
+              onClick={handleNext}
+            >
+              Next &rarr;
+            </button>
+          </div>
         </div>
       )}
     </>
