@@ -45,7 +45,7 @@ function Search() {
   };
   console.log(results);
   return (
-    <div className="search-container">
+    <div className="search-container min-h-screen">
       <form className="search-bar my-8 text-center px-2 xs:mb-10 md:mb-16">
         <input
           type="text"
