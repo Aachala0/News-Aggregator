@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const { getNews, getTopheadlines, getCountryNews, getCatagoryNews } = require("./controller/newsController")
+const { getNews, getTopheadlines, getCountryNews, getCatagoryNews, Search } = require("./controller/newsController")
 
 const express = require("express");
 const cors = require("cors");
@@ -16,6 +16,7 @@ app.get("/news", getNews);
 app.get("/top-headlines/:category", getCatagoryNews);
 app.get("/top-headlines", getTopheadlines);
 app.get("/country/:iso", getCountryNews);
+app.get("/everything/:query", Search);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function () {

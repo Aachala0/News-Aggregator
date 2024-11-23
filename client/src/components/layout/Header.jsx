@@ -33,9 +33,11 @@ const Header = () => {
     if (mode === "light") {
       setMode("dark");
       document.body.style.backgroundColor = "rgb(17, 24, 39)";
+      document.body.style.color = "white";
     } else {
       setMode("light");
       document.body.style.backgroundColor = "white";
+      document.body.style.color = "rgb(17, 24, 39)";
     }
   };
 
@@ -48,7 +50,7 @@ const Header = () => {
           borderBottom: "2px solid #ccc",
         }}
       >
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <img
             src={logo}
             alt="Logo"
@@ -130,7 +132,7 @@ const Header = () => {
                 </div>
               </NavDropdown>
 
-              <Nav.Link href="#home" eventKey="Search">
+              <Nav.Link href="/search" eventKey="Search">
                 Search
               </Nav.Link>
               <Nav.Link>

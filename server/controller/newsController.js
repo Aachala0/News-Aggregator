@@ -41,4 +41,14 @@ const getCountryNews = asyncHandler(async (req, res) => {
   res.status(result.status).json(result);
 });
 
-module.exports = { getNews, getTopheadlines, getCountryNews, getCatagoryNews };
+const Search = asyncHandler(async (req, res) => {
+  let pageSize = parseInt(req.query.pageSize) || 20;
+  let page = parseInt(req.query.page) || 1;
+  const searchQuery = req.params.query;
+
+  let url = `https://newsapi.org/v2/everything?q=${searchQuery}&page=${page}&pageSize=${pageSize}&apiKey=${process.env.API_KEY}`;
+  const result = await newsFetch(url);
+  res.status(result.status).json(result);
+});
+
+module.exports = { getNews, getTopheadlines, getCountryNews, getCatagoryNews, Search };

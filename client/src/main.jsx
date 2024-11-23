@@ -7,6 +7,7 @@ import AllNews from "./components/News/AllNews.jsx";
 import CountryNews from "./components/News/CountryNews.jsx";
 import CategoryNews from "./components/News/CategoryNews.jsx";
 import TopHeadlines from "./components/News/TopHeadlines.jsx";
+import Search from "./components/search.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,11 +30,11 @@ const router = createBrowserRouter([
         path: "/:category",
         element: <CategoryNews />,
       },
+      {
+        path: "/search",
+        element: <Search />,
+      },
     ],
-  },
-  {
-    path: "/country/:iso",
-    element: <CountryNews />,
   },
 ]);
 
