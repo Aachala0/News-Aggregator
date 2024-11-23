@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Card from "../Card";
-import countries from "../countries";
 
-const CountryNews = () => {
-  const { iso } = useParams();
+const CategoryNews = () => {
+  const { category } = useParams();
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedCountry, setSelectedCountry] = useState(iso || "us"); // Default to 'us'
+  const [selectedCategory, setSelectedCategory] = useState(
+    category || "General"
+  );
 
   const pageSize = 12;
 
-  // Update selectedCountry when the URL changes
+  // Update selectedCategory when the URL changes
   useEffect(() => {
-    if (iso) {
-      setSelectedCountry(iso);
+    if (category) {
+      setSelectedCategory(category);
     }
-  }, [iso]);
+  }, [category]);
 
   // Fetch news data
   useEffect(() => {
@@ -27,7 +28,7 @@ const CountryNews = () => {
     setError(null);
 
     fetch(
-      `http://localhost:5000/country/${selectedCountry}?page=${page}&pageSize=${pageSize}`
+      `http://localhost:5000/top-headlines/${selectedCategory}?page=${page}&pageSize=${pageSize}`
     )
       .then((response) => {
         if (response.ok) {
@@ -49,32 +50,10 @@ const CountryNews = () => {
         setError("Failed to fetch news. Please try again later.");
       })
       .finally(() => setIsLoading(false));
-  }, [page, selectedCountry]);
+  }, [page, selectedCategory]);
 
   return (
     <div className="news-container">
-      <div className="my-2">
-        <label htmlFor="country-select" className="form-label">
-          Select Country:
-        </label>
-        <select
-          id="country-select"
-          className="form-select"
-          value={selectedCountry}
-          onChange={(e) => setSelectedCountry(e.target.value)}
-        >
-          {Array.isArray(countries) && countries.length > 0 ? (
-            countries.map((country) => (
-              <option key={country.iso_2_alpha} value={country.iso_2_alpha}>
-                {country.countryName}
-              </option>
-            ))
-          ) : (
-            <option value="us">United States</option> // Fallback option
-          )}
-        </select>
-      </div>
-
       {error && <div className="text-danger mb-4">{error}</div>}
 
       <div className="news-container">
@@ -126,4 +105,4 @@ const CountryNews = () => {
   );
 };
 
-export default CountryNews;
+export default CategoryNews;

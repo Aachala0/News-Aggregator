@@ -4,21 +4,36 @@ import App from "./App.jsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AllNews from "./components/News/AllNews.jsx";
-import TestGrid from "./components/News/test.jsx";
+import CountryNews from "./components/News/CountryNews.jsx";
+import CategoryNews from "./components/News/CategoryNews.jsx";
+import TopHeadlines from "./components/News/TopHeadlines.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <>
-        <App />
-        <AllNews />
-      </>
-    ),
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <AllNews />,
+      },
+      {
+        path: "/top-headlines",
+        element: <TopHeadlines />,
+      },
+      {
+        path: "/country/:iso",
+        element: <CountryNews />,
+      },
+      {
+        path: "/:category",
+        element: <CategoryNews />,
+      },
+    ],
   },
   {
-    path: "/test",
-    element: <TestGrid />,
+    path: "/country/:iso",
+    element: <CountryNews />,
   },
 ]);
 

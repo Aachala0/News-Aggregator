@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -19,7 +19,7 @@ const Header = () => {
 
   useEffect(() => {
     document.body.classList.toggle("dark-mode", darkMode);
-    localStorage.setItem("darkMode", darkMode); 
+    localStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
 
   const handleSelect = (selectedKey) => {
@@ -27,7 +27,6 @@ const Header = () => {
     setShowCatDropdown(false);
     setShowCountryDropdown(false);
   };
-
 
   const [mode, setMode] = useState("light");
   const toggleMode = () => {
@@ -72,7 +71,10 @@ const Header = () => {
               <Nav.Link href="/" eventKey="All News">
                 All News
               </Nav.Link>
-              <NavDropdown
+              <Nav.Link href="/top-headlines" eventKey="Top Headlines">
+                Top Headlines
+              </Nav.Link>
+              {/* <NavDropdown
                 title="Categories"
                 id="categories-dropdown"
                 show={showCatDropdown}
@@ -86,11 +88,17 @@ const Header = () => {
                 {["General", "Business", "Sports", "Entertainment"].map(
                   (category, index) => (
                     <NavDropdown.Item key={index} eventKey={category}>
-                      {category}
+                      <Link
+                        to={`/${category}`}
+                        className="flex gap-3 country-custom"
+                        onClick={() => setShowCountryDropdown(false)}
+                      >
+                        {category}
+                      </Link>
                     </NavDropdown.Item>
                   )
                 )}
-              </NavDropdown>
+              </NavDropdown> */}
               <NavDropdown
                 title="Country"
                 id="country-dropdown"
@@ -102,22 +110,24 @@ const Header = () => {
                 onMouseLeave={() => setShowCountryDropdown(false)}
                 className={mode === "dark" ? "dropdown-dark" : "dropdown-light"}
               >
-                {countries.map((element, index) => (
-                  <NavDropdown.Item key={index}>
-                    <Link
-                      to={`/country/${element?.iso_2_alpha}`}
-                      className="flex gap-3 country-custom"
-                      onClick={() => setShowCountryDropdown(false)}
-                    >
-                      <img
-                        src={element?.png}
-                        srcSet={`https://flagcdn.com/32x24/${element?.iso_2_alpha}.png 2x`}
-                        alt={element?.countryName}
-                      />
-                      <span>{element?.countryName}</span>
-                    </Link>
-                  </NavDropdown.Item>
-                ))}
+                <div className="country-menu">
+                  {countries.map((element, index) => (
+                    <NavDropdown.Item key={index}>
+                      <Link
+                        to={`/country/${element?.iso_2_alpha}`}
+                        className="flex gap-3 country-custom"
+                        onClick={() => setShowCountryDropdown(false)}
+                      >
+                        <img
+                          src={element?.png}
+                          srcSet={`https://flagcdn.com/32x24/${element?.iso_2_alpha}.png 2x`}
+                          alt={element?.countryName}
+                        />
+                        <span>{element?.countryName}</span>
+                      </Link>
+                    </NavDropdown.Item>
+                  ))}
+                </div>
               </NavDropdown>
 
               <Nav.Link href="#home" eventKey="Search">

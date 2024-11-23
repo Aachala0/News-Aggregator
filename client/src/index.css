@@ -2,60 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
-.navbar{
-    --bs-navbar-padding-y: 0;
+.navbar {
+  --bs-navbar-padding-y: 0;
 }
-.navbar > .container{
-    margin-right: 30px;
+.navbar > .container {
+  margin-right: 30px;
 }
 .navbar-brand {
-    padding-top: 0;
-    padding-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
-.navbar-nav{
-    float: right;
-    --bs-nav-link-color: #B4121B !important;
+.navbar-nav {
+  float: right;
+  --bs-nav-link-color: #b4121b !important;
 }
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link.show {
-    color: #696767;
+  color: #696767;
+}
+
+.country-menu {
+  max-height: 300px;
+  overflow-y: scroll; /* Only vertical scrolling */
+  overflow-x: hidden; /* Prevent horizontal scrollbar */
+}
+
+.country-menu::-webkit-scrollbar {
+  width: 4px; /* Very slim scrollbar */
+}
+
+.country-menu::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* Slightly visible scrollbar thumb */
+  border-radius: 10px; /* Optional: round the edges of the scrollbar */
+}
+
+.country-menu::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light track color */
 }
 
 /* Light mode dropdown */
 .dropdown-light .dropdown-menu {
-    background-color: white;
-    text-decoration: none;
-    border: none;
+  background-color: white;
+  text-decoration: none;
+  border: none;
 }
 
 .dropdown-light .dropdown-item {
-    color: #4b5563;
+  color: #4b5563;
 }
 
 .dropdown-light .dropdown-item:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 /* Dark mode dropdown */
 .dropdown-dark .dropdown-menu {
-    background-color: #1e293b;
-    color: #f0f0f0;
-    border: none;
+  background-color: #1e293b;
+  color: #f0f0f0;
+  border: none;
 }
 
 .dropdown-dark .dropdown-item {
-    color: #70757c;
+  color: #70757c;
 }
 
 .dropdown-dark .dropdown-item:hover {
-    background-color: #4b5563;
+  background-color: #4b5563;
 }
-.country-custom{
-    color: #70757c;
-    text-decoration: none;
+.country-custom {
+  color: #70757c;
+  text-decoration: none;
 }
 
-.news-container{
-    margin: 0 30px 0 30px;
+.news-container {
+  margin: 0 30px 0 30px;
 }
-    

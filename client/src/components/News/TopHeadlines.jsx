@@ -1,34 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { React, useState, useEffect } from "react";
 import Card from "../Card";
-import countries from "../countries";
+import Loader from "../Loader";
 
-const CountryNews = () => {
-  const { iso } = useParams();
+function TopHeadlines() {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedCountry, setSelectedCountry] = useState(iso || "us"); // Default to 'us'
 
-  const pageSize = 12;
+  function handlePrev() {
+    setPage(page - 1);
+  }
 
-  // Update selectedCountry when the URL changes
-  useEffect(() => {
-    if (iso) {
-      setSelectedCountry(iso);
-    }
-  }, [iso]);
+  function handleNext() {
+    setPage(page + 1);
+  }
 
-  // Fetch news data
+  let pageSize = 12;
+
   useEffect(() => {
     setIsLoading(true);
     setError(null);
-
-    fetch(
-      `http://localhost:5000/country/${selectedCountry}?page=${page}&pageSize=${pageSize}`
-    )
+    fetch(`http://localhost:5000/top-headlines?page=${page}&pageSize=${pageSize}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -41,45 +35,24 @@ const CountryNews = () => {
           setData(myJson.data.articles);
         } else {
           setError(myJson.message || "An error occurred");
-          setData([]);
         }
       })
       .catch((error) => {
         console.error("Fetch error:", error);
         setError("Failed to fetch news. Please try again later.");
       })
-      .finally(() => setIsLoading(false));
-  }, [page, selectedCountry]);
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [page]);
 
   return (
-    <div className="news-container">
-      <div className="my-2">
-        <label htmlFor="country-select" className="form-label">
-          Select Country:
-        </label>
-        <select
-          id="country-select"
-          className="form-select"
-          value={selectedCountry}
-          onChange={(e) => setSelectedCountry(e.target.value)}
-        >
-          {Array.isArray(countries) && countries.length > 0 ? (
-            countries.map((country) => (
-              <option key={country.iso_2_alpha} value={country.iso_2_alpha}>
-                {country.countryName}
-              </option>
-            ))
-          ) : (
-            <option value="us">United States</option> // Fallback option
-          )}
-        </select>
-      </div>
-
+    <>
       {error && <div className="text-danger mb-4">{error}</div>}
 
       <div className="news-container">
         <div className="row">
-          {!isLoading && Array.isArray(data) && data.length > 0 ? (
+          {!isLoading ? (
             data.map((element, index) => (
               <div className="col-12 col-sm-6 col-lg-4 mb-4" key={index}>
                 <Card
@@ -94,18 +67,18 @@ const CountryNews = () => {
               </div>
             ))
           ) : (
-            <div>No news available.</div>
+            <Loader />
           )}
         </div>
       </div>
 
-      {!isLoading && Array.isArray(data) && data.length > 0 && (
+      {!isLoading && data.length > 0 && (
         <div className="d-flex justify-content-center my-4">
           <div className="pagination">
             <button
               disabled={page <= 1}
               className="btn btn-secondary"
-              onClick={() => setPage(page - 1)}
+              onClick={handlePrev}
             >
               &larr; Prev
             </button>
@@ -115,15 +88,15 @@ const CountryNews = () => {
             <button
               className="btn btn-secondary"
               disabled={page >= Math.ceil(totalResults / pageSize)}
-              onClick={() => setPage(page + 1)}
+              onClick={handleNext}
             >
               Next &rarr;
             </button>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
-};
+}
 
-export default CountryNews;
+export default TopHeadlines;
